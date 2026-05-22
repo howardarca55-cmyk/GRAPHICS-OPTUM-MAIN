@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart — Dhing Xi Ched</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    <style>
+        .nav-auth { display: flex; align-items: center; gap: .6rem; }
+        .nav-auth .btn-login {
+            padding: .45rem 1.2rem;
+            border-radius: 999px;
+            border: .15rem solid crimson;
+            color: crimson;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: transparent;
+            transition: background .2s, color .2s;
+            white-space: nowrap;
+        }
+        .nav-auth .btn-login:hover { background: crimson; color: #fff; }
+        .nav-auth .btn-register {
+            padding: .45rem 1.2rem;
+            border-radius: 999px;
+            border: .15rem solid crimson;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: crimson;
+            transition: opacity .2s;
+            white-space: nowrap;
+        }
+        .nav-auth .btn-register:hover { opacity: .85; }
+    </style>
+</head>
+<body>
+
+<header>
+    <input type="checkbox" id="toggler">
+    <label for="toggler" class="fas fa-bars"></label>
+    <a href="{{ url_for('index') }}" class="logo">Dhing Xi Ched<span>.</span></a>
+
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('shop') }}">Products</a>
+        <a href="{{ url_for('index') }}#about">About</a>
+        <a href="{{ url_for('index') }}#contact">Contact</a>
+        {% if logged_in %}
+            <a href="{{ url_for('logout') }}" style="color:crimson;">Logout ({{ session['username'] }})</a>
+        {% else %}
+            <div class="nav-auth">
+                <a href="{{ url_for('login') }}" class="btn-login">Login</a>
+                <a href="{{ url_for('register') }}" class="btn-register">Register</a>
+            </div>
+        {% endif %}
+    </nav>
+
+    <div class="icons">
+        {% if logged_in %}
+            <a href="#" class="fas fa-heart"></a>
+            <a href="{{ url_for('cart') }}" class="fas fa-shopping-cart"></a>
+            <a href="{{ url_for('logout') }}" class="fas fa-user" title="Logout ({{ session['username'] }})"></a>
+        {% endif %}
+    </div>
+</header>
+
+<section class="cart">
+
+    <div class="cart-items">
+
+        <!-- Item 1 -->
+        <div class="cart-item">
+            <img src="{{ url_for('static', filename='images/p1.jpg') }}" alt="Product">
+            <div class="item-details">
+                <h3>sirang 5090</h3>
+                <p>₱500</p>
+                <input type="number" value="1" min="1">
+                <button class="remove-btn">Remove</button>
+            </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="cart-item">
+            <img src="{{ url_for('static', filename='images/p2.jpg') }}" alt="Product">
+            <div class="item-details">
+                <h3>laptop na celeron</h3>
+                <p>₱300</p>
+                <input type="number" value="1" min="1">
+                <button class="remove-btn">Remove</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Total Section -->
+    <div class="cart-total">
+        <h2>Total: ₱800</h2>
+        <button class="checkout-btn">Checkout</button>
+    </div>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Password – Reset</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/newpass.css') }}">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ── Header ── -->
+    <header>
+        <a href="{{ url_for('index') }}" class="logo">Dhing Xi Ched<span>.</span></a>
+
+        <input type="checkbox" id="toggler">
+        <label for="toggler" class="fa-solid fa-bars"></label>
+
+        <nav class="navbar">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('index') }}#products">Products</a>
+            <a href="{{ url_for('index') }}#about">About</a>
+            <a href="{{ url_for('index') }}#contact">Contact</a>
+        </nav>
+
+        <div class="icons">
+            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="#"><i class="fa-solid fa-user"></i></a>
+        </div>
+    </header>
+
+    <!-- ── Main Section ── -->
+    <section class="home">
+        <div class="wrapper">
+            <div class="form-box">
+
+                <h2>New Password</h2>
+
+                <p class="code-hint">
+                    Choose a strong password to secure your account.
+                </p>
+
+                {% if error %}
+                <div style="
+                    background: rgba(220,20,60,0.12);
+                    border: .1rem solid rgba(220,20,60,0.35);
+                    color: #ff8a8a;
+                    padding: 1.2rem 1.6rem;
+                    border-radius: .6rem;
+                    font-size: 1.35rem;
+                    margin-bottom: 2rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                ">
+                    <i class="fas fa-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endif %}
+
+                {% if success %}
+                <div style="
+                    background: rgba(0,200,150,0.1);
+                    border: .1rem solid rgba(0,200,150,0.3);
+                    color: #5fffd6;
+                    padding: 1.2rem 1.6rem;
+                    border-radius: .6rem;
+                    font-size: 1.35rem;
+                    margin-bottom: 2rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                ">
+                    <i class="fas fa-check-circle"></i> {{ success }}
+                </div>
+                {% endif %}
+
+                <form action="/reset-password" method="POST">
+
+                    <!-- New Password -->
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock icon"></i>
+                        <input type="password"
+                               name="new_password"
+                               id="new_password"
+                               required>
+                        <label for="new_password">New Password</label>
+                        <button type="button" class="pw-toggle" onclick="togglePw('new_password', this)" tabindex="-1">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <!-- Strength bar -->
+                    <div class="strength-bar-wrap">
+                        <div class="strength-bar-track">
+                            <div class="strength-bar-fill"></div>
+                        </div>
+                        <p class="strength-label"></p>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="input-box">
+                        <i class="fa-solid fa-shield-halved icon"></i>
+                        <input type="password"
+                               name="confirm_password"
+                               id="confirm_password"
+                               required>
+                        <label for="confirm_password">Verify New Password</label>
+                        <button type="button" class="pw-toggle" onclick="togglePw('confirm_password', this)" tabindex="-1">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <!-- Confirm Button -->
+                    <button type="submit" class="btn">Confirm</button>
+
+                </form>
+
+                <!-- Back to login -->
+                <div class="login-register">
+                    <p>Remembered your password? <a href="{{ url_for('login') }}">Back to Login</a></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/newpass.js') }}"></script>
+</body>
+</html>
