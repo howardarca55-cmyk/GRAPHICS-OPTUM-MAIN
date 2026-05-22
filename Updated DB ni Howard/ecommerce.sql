@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
 --
 -- Dumping data for table `new password`
 --
-
+-- pasword resets --
 	CREATE TABLE password_resets (
 		id INT AUTO_INCREMENT PRIMARY KEY,
 		email VARCHAR(255) NOT NULL,
